@@ -1,0 +1,236 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.0
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1
+-- Généré le : lun. 06 juin 2022 à 13:15
+-- Version du serveur :  10.4.19-MariaDB
+-- Version de PHP : 7.4.19
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données : `zoo_georges`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `animals`
+--
+
+CREATE TABLE `animals` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `birthday` date NOT NULL,
+  `enclos_id` int(11) DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `animals`
+--
+
+INSERT INTO `animals` (`id`, `name`, `birthday`, `enclos_id`, `type_id`) VALUES
+(1, 'Nemo', '2022-06-01', 1, 1),
+(2, 'Simba', '2022-06-04', 2, 2),
+(4, 'Scar', '2022-06-13', 2, 2),
+(6, 'Hedwig', '2022-06-17', 4, 4),
+(7, 'CACOOO', '1999-05-05', 5, 5),
+(26, 'King', '1999-02-19', 4, 5),
+(29, 'titi_moustique', '2022-06-13', 4, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `enclos`
+--
+
+CREATE TABLE `enclos` (
+  `id` int(11) NOT NULL,
+  `numero` int(11) NOT NULL,
+  `environnement_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `enclos`
+--
+
+INSERT INTO `enclos` (`id`, `numero`, `environnement_id`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(4, 3, 4),
+(5, 5, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `environnement`
+--
+
+CREATE TABLE `environnement` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `environnement`
+--
+
+INSERT INTO `environnement` (`id`, `name`) VALUES
+(1, 'Ocean'),
+(2, 'Savanne'),
+(4, 'Forêt ');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `soignant`
+--
+
+CREATE TABLE `soignant` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `apikey` varchar(255) NOT NULL,
+  `admin` tinyint(4) NOT NULL,
+  `type_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `soignant`
+--
+
+INSERT INTO `soignant` (`id`, `name`, `apikey`, `admin`, `type_id`) VALUES
+(1, 'Jean Michel Poisson Soignant', '565464564', 0, 1),
+(2, 'Bernard Le lyonnais ', '2784e2232cd101b0c6ea9b1dc8b33144891d0b9b', 0, 2),
+(4, 'Janna', '00', 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `type`
+--
+
+CREATE TABLE `type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `type`
+--
+
+INSERT INTO `type` (`id`, `name`) VALUES
+(1, 'Poisson'),
+(2, 'Lion'),
+(4, 'Oiseaux '),
+(5, 'Dog'),
+(6, 'Insecte');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `animals`
+--
+ALTER TABLE `animals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `type_id` (`type_id`),
+  ADD KEY `enclos_id` (`enclos_id`);
+
+--
+-- Index pour la table `enclos`
+--
+ALTER TABLE `enclos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `environnement_id` (`environnement_id`);
+
+--
+-- Index pour la table `environnement`
+--
+ALTER TABLE `environnement`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `soignant`
+--
+ALTER TABLE `soignant`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `type_id` (`type_id`);
+
+--
+-- Index pour la table `type`
+--
+ALTER TABLE `type`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `animals`
+--
+ALTER TABLE `animals`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT pour la table `enclos`
+--
+ALTER TABLE `enclos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT pour la table `environnement`
+--
+ALTER TABLE `environnement`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT pour la table `soignant`
+--
+ALTER TABLE `soignant`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT pour la table `type`
+--
+ALTER TABLE `type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `animals`
+--
+ALTER TABLE `animals`
+  ADD CONSTRAINT `animals_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`),
+  ADD CONSTRAINT `animals_ibfk_2` FOREIGN KEY (`enclos_id`) REFERENCES `enclos` (`id`);
+
+--
+-- Contraintes pour la table `enclos`
+--
+ALTER TABLE `enclos`
+  ADD CONSTRAINT `enclos_ibfk_1` FOREIGN KEY (`environnement_id`) REFERENCES `environnement` (`id`);
+
+--
+-- Contraintes pour la table `soignant`
+--
+ALTER TABLE `soignant`
+  ADD CONSTRAINT `soignant_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

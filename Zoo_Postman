@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "77acefeb-6088-4098-a7d5-ffd5967dbdcc",
+		"name": "Zoo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7200421"
+	},
+	"item": [
+		{
+			"name": "Get All Animals One soigneur",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{host}}/zoo/soigneur_apikey_simple/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"zoo",
+						"soigneur_apikey_simple",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Animal",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{apikey_admin}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "apikey",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "King",
+							"type": "text"
+						},
+						{
+							"key": "birthday",
+							"value": "1999/02/19",
+							"type": "text"
+						},
+						{
+							"key": "enclos_id",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "type_id",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/zoo/Create_animal_apikey/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"zoo",
+						"Create_animal_apikey",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Animal",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{apikey_admin}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "apikey",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"CACOOO\",\r\n    \"birthday\": \"1999/05/05\",\r\n    \"enclos_id\":\"5\",\r\n    \"type_id\":\"5\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/zoo/Update_animal/?id=7",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"zoo",
+						"Update_animal",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Animal",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{apikey_admin}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "apikey",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/zoo/delete_animal/?id=28",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"zoo",
+						"delete_animal",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "28"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{apikey_soignant2}}",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "apikey",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost",
+			"type": "string"
+		},
+		{
+			"key": "apikey_soignant1",
+			"value": "565464564",
+			"type": "string"
+		},
+		{
+			"key": "apikey_admin",
+			"value": "00",
+			"type": "string"
+		},
+		{
+			"key": "apikey_soignant2",
+			"value": "2784e2232cd101b0c6ea9b1dc8b33144891d0b9b",
+			"type": "string"
+		}
+	]
+}
